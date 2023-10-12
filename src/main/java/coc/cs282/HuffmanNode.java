@@ -11,7 +11,7 @@ public class HuffmanNode {
     public HuffmanNode(int frequency, char data) {
         this.frequency = frequency;
         this.data = data;
-        this.asciiCode = data;
+        this.asciiCode = (int)data;
     }
     
     public int getKey() {

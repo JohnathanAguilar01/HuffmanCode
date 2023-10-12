@@ -4,11 +4,21 @@ public class HuffmanCode {
     int asciiFrequency[];
     int charAmount;
     HuffmanTree tree;
+    String originalText;
     String encodedText;
+    String decodedText;
     String[] codeTable = new String[256];
     String x;
 
-
+    HuffmanCode(String txt){
+        originalText = txt;
+        this.GetFrequency(originalText);
+        this.encode();
+        this.EncodeString(originalText);
+        System.out.println(this.encodedText);
+        this.DecodeString(this.encodedText, this.tree.root);
+        System.out.println(this.decodedText);
+    }
     public void GetFrequency(String txt){
         asciiFrequency = new int[256];
         charAmount = 0;
@@ -38,7 +48,7 @@ public class HuffmanCode {
             return;
         }
         if(node.rightChild == null && node.leftChild == null){
-            codeTable[node.asciiCode - 1] = code;
+            codeTable[node.asciiCode] = code;
         }
         if(code == null){
             code = "0";
@@ -57,14 +67,33 @@ public class HuffmanCode {
 
     }
     public void EncodeString(String txt){
-        encodedText = codeTable[txt.charAt(0) - 1];
+        encodedText = codeTable[txt.charAt(0)];
 
-        for(int i = 0; i < txt.length(); i++){
-            encodedText = encodedText + codeTable[txt.charAt(1) - 1];
+        for(int i = 1; i < txt.length(); i++){
+            encodedText = encodedText + codeTable[txt.charAt(i)];
         }
 
     }
-    public void DecodeString(String encodedText){
-
+    public void DecodeString(String encodedText, HuffmanNode node){
+        HuffmanNode root = node;
+        HuffmanNode travel = node;
+        for(int i = 0; i <= encodedText.length(); i++){
+           if(travel.leftChild == null && travel.rightChild == null){
+               if(decodedText == null){
+                   decodedText = Character.toString(travel.data);
+               }else {
+                   decodedText = decodedText + Character.toString(travel.data);
+               }
+               travel = root;
+           }
+           if(i == encodedText.length()){
+               break;
+           }
+           if(encodedText.charAt(i) == '0'){
+                travel = travel.leftChild;
+           }else{
+               travel = travel.rightChild;
+           }
+        }
     }
 }
