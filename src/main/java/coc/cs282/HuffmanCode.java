@@ -10,15 +10,6 @@ public class HuffmanCode {
     String[] codeTable = new String[256];
     String x;
 
-    HuffmanCode(String txt){
-        originalText = txt;
-        this.GetFrequency(originalText);
-        this.encode();
-        this.EncodeString(originalText);
-        System.out.println(this.encodedText);
-        this.DecodeString(this.encodedText, this.tree.root);
-        System.out.println(this.decodedText);
-    }
     public void GetFrequency(String txt){
         asciiFrequency = new int[256];
         charAmount = 0;
@@ -30,7 +21,9 @@ public class HuffmanCode {
         }
     }
 
-    public void encode(){
+    public void EncodeTxt(String txt){
+        originalText = txt;
+        this.GetFrequency(originalText);
         HuffmanPriorityQ que = new HuffmanPriorityQ(charAmount);
 
         for (int i = 0; i < 256; i++) {
@@ -41,6 +34,12 @@ public class HuffmanCode {
         }
         tree = new HuffmanTree(que);
         MakeCodeTable(tree.root, x);
+        this.EncodeString(originalText);
+        System.out.println(this.encodedText);
+    }
+    public void DecodeTxt(){
+        this.DecodeString(this.encodedText, this.tree.root);
+        System.out.println(this.decodedText);
     }
     public void MakeCodeTable(HuffmanNode node, String code) {
 
@@ -64,7 +63,6 @@ public class HuffmanCode {
         }
         MakeCodeTable(node.rightChild, code);
         code = code.substring(0, code.length() - 1);
-
     }
     public void EncodeString(String txt){
         encodedText = codeTable[txt.charAt(0)];

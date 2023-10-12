@@ -7,6 +7,11 @@ public class Main {
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream
         System.out.print("Enter a string: ");
         text = sc.nextLine();
-        HuffmanCode one = new HuffmanCode(text);
+        HuffmanCode one = new HuffmanCode();
+        one.EncodeTxt(text);
+        one.DecodeTxt();
+        if (one.decodedText == text){
+            System.out.println("sucseccsss");
+        }
     }
 }
