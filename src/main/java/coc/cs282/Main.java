@@ -8,10 +8,9 @@ public class Main {
         System.out.print("Enter a string: ");
         text = sc.nextLine();
         HuffmanCode one = new HuffmanCode();
+        System.out.println("Encoded Message:");
         one.EncodeTxt(text);
+        System.out.println("Decoded Message:");
         one.DecodeTxt();
-        if (one.decodedText == text){
-            System.out.println("sucseccsss");
-        }
     }
 }
